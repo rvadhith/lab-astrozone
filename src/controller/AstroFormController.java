@@ -30,8 +30,9 @@ public class AstroFormController extends HttpServlet {
 		String month=request.getParameter("dob2");
 		String year=request.getParameter("dob3");
 		String dob = date+"-"+month+"-"+year;
+		String email = request.getParameter("email");
 		
-		User  user = new User(name,,dob,gender);
+		User  user = new User(name,gender,dob);
 		AstroCalculator astro = new AstroCalculator();
 		String astrosign = astro.findSign(user);
 		

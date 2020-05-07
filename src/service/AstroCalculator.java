@@ -1,14 +1,27 @@
 package service;
+
 import java.time.LocalDate;
+import java.time.Period;
 
 import model.User;
 
 public class AstroCalculator {
 	public String findSign(User user) {
 		
-		LocalDate birthYear = user.getDob();
-		int month = birthYear.getMonthValue();
-		int day = birthYear.getDayOfMonth();
+		//Conversion of string to dob to individual components
+		String birthYear = user.getDob();
+		String[] splitData = birthYear.split("-");
+		int day = Integer.parseInt(splitData[0]);
+		int month = Integer.parseInt(splitData[1]);
+		int year = Integer.parseInt(splitData[2]);
+		
+		//Age calculation
+		LocalDate today = LocalDate.now();                          //Today's date
+		LocalDate birthday = LocalDate.of(year, month, day);  //Birth date
+		Period age = Period.between(birthday, today);
+		
+		
+		//Logic for zodiac sign
 		String astroSign = ""; 
 		
 		if (month == 1){ 
@@ -92,6 +105,11 @@ public class AstroCalculator {
             else
             	astroSign ="Capricorn"; 
         }
+		
+		System.out.println("Your details");
+		System.out.println("Name: " + user.getName());
+		System.out.println("Age: " + age.getYears());
+		System.out.println("You Astrology: " + astroSign.toUpperCase());
 		
 		return astroSign;
 	}
